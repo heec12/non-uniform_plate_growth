@@ -241,11 +241,9 @@ read(4,*) v_min, v_max, ivis_shape,efoldc
 call AdvanceToNextInputLine( 4 )
 read(4,*)igeotherm,g_x0,g_y0c, g_amplitude,g_width 
 call AdvanceToNextInputLine( 4 )
-!read(4,*) ny_inject, nelem_inject, nelem_inject1, nelem_inject2, rate_inject1, rate_inject2
-!read(4,*) ny_inject, nelem_inject, rate_inject_brittle, rate_inject_ductile
-read(4,*) ny_inject, nelem_inject, rate_inject_brittle, rate_inject_ductile
+read(4,*) ny_inject, nelem_inject, rate_inject_init, rate_inject_later
 call AdvanceToNextInputLine( 4 )
-read(4,*)rate_inject_ductile_e, rate_inject_ductile_s
+read(4,*)rate_inject_initt, rate_inject_laterr
 call AdvanceToNextInputLine( 4 )
 read(4,*) iinj1, iinj2, jinj1, jinj2, xlatheat, ratfac, fnu
 call AdvanceToNextInputLine( 4 ) ! add to the last line of the input file and param.inc

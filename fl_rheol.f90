@@ -65,33 +65,15 @@ do 3 i = 1,nx-1 !nx-1 = 120 element number on x direction
         irh = irheol(iph)
         zcord_ave = 0.25 * (cord(j,i,2) + cord(j+1,i,2) + cord(j,i+1,2) + cord(j+1,i+1,2))
         temp_ave = 0.25 * (temp(j,i) + temp(j+1,i) + temp(j,i+1) + temp(j+1,i+1))
-!        if (it.eq.1) then
-!         if (temp_ave.le.600) then
-!             rate_inject = rate_inject_brittle
-!         elseif (temp_ave.gt.600) then
-!             rate_inject = rate_inject_ductile
-!         endif
+
+        ! different M values at different times
+!        if (time .le. 0.7*1e6*3.1536e7) then
+            rate_inject = rate_inject_init
+!        else
+!            rate_inject = rate_inject_later
 !        endif
 
-        !if (it.eq.2) then
-         if (temp_ave.le.600) then
-             rate_inject = rate_inject_brittle
-         elseif ((temp_ave.gt.600).and.(time .lt. time_max*0.3)) then
-             rate_inject = rate_inject_ductile
-
-         elseif ((temp_ave.gt.600).and.(time .ge. time_max*0.3).and.(time .lt. time_max*0.6)) then
-             rate_inject = rate_inject_ductile_e
-
-         elseif ((temp_ave.gt.600).and.(time .ge. time_max*0.6).and.(time .lt. time_max)) then
-             rate_inject = rate_inject_ductile_s
-
-             !rate_inject = (fa * SIN(2 * pi/fb * time) + fc) * (fsr)  !sine function
-             !print*,'fsr=',fsr
-             !print*, 'rate =', rate_inject
-             !print*,'it=',it
-         endif
-        !endif
-!print*, 'it =', it
+        !print*, 'it =', it
     if(ny_inject.gt.0.and.j.le.nelem_inject) then
 !!!!!!!!!!!!!!!!!!!!!!!!!change in rigidity!!!!!!!!!!!!!!!!!!!!!!!!!!
         !!!!!!!!!!!too high!!!!!!!!!!!!!!

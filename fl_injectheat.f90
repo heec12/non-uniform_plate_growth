@@ -85,15 +85,14 @@ goto 222 !Tian Comment this block, it make ninjbot become weird (always equals t
 ! Compute dT's
 !-------------------------------------------------------------------------------
 
-! different M values in the brittle and ductile zones - Olive 4/08
-         if (temp(j,i).le.600) then
-          rate_inject=rate_inject_brittle
-         else
-          rate_inject=rate_inject_ductile
-         endif
+! different M values at different times
+!         if (time .le. 0.7*1e6*3.1536e7) then
+          rate_inject=rate_inject_init
+!         else
+!          rate_inject=rate_inject_later
+!         endif
 
    rfac=ratfac*rate_inject*dt/(dx11*dble(ninj))   ! no need to have ratfac
-   !print *,'rfac =',rfac,'ratfac =',ratfac,'rate_inject_2nd =',rate_inject,'ninj =',ninj !Hao debug
    T0=0.25*(temp(j1,i1)+temp(j1,i)+temp(j,i1)+temp(j,i))
    dtemp=dtemp_inj(T0,tl(iph),ts(iph),rfac,fdum)
    dtemp=dmin1(dtemp,tl(iph)-T0)
