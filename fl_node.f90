@@ -449,7 +449,7 @@ enddo
 !$OMP end do
 
 !! RIGHT WALL
-!$OMP do
+
 do j=1,nz
 
 ! bottom support - Archimed force (normal to the surface, shear component = 0)
@@ -487,6 +487,11 @@ do j=1,nz
         !print *, 'right j=', j, force(j,nx,1), 0.5*press_norm_u*dly_u, 0.5*press_norm_d*dly_d
         !force(j,nx,1) = force(j,nx,1)-0.5*press_norm_u*dly_u-0.5*press_norm_d*dly_d
         !force(j,nx,2) = force(j,nx,2)+0.5*press_norm_u*dlx_u+0.5*press_norm_d*dlx_d
+        if ((time.gt.3.85*1.e3*3.1536e7)) then !.and. time.lt.3.8500001*1.e3*3.1536e7)) then
+            print *, '1)left j=', j, force(j,1,1), 'time=', time
+            print *, '2)left j=', j, force(j,1,2), 'time=', time
+        end if
+
         force(j,nx,1) = -0.5*press_norm_u*dly_u-0.5*press_norm_d*dly_d
         force(j,nx,2) = 0.5*press_norm_u*dlx_u+0.5*press_norm_d*dlx_d
         balance(j,nx,1) = 1.0d+17
@@ -494,7 +499,7 @@ do j=1,nz
     !write(*,*) i,pisos,force(nz,i,1),force(nz,i,2),press_norm_l,press_norm_r,dlx_l,dlx_r,dly_l,dly_r
 
 enddo
-!$OMP end do
+
 !endif
 
 
