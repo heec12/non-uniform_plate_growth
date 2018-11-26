@@ -401,6 +401,15 @@ if(nyhydro.gt.0) then
     !$OMP end do
 endif
 
+do j=1,nz
+    if ((time.gt.121869852110.0 .and. time.le.121869852111.0)) then
+        print *, '1) left j=', j, force(j,1,1), 'time =', time
+        print *, '2) left j=', j, force(j,1,2), 'time =', time
+        print *, '1) right j=', j, force(j,nx,1), 'time =', time
+        print *, '2) right j=', j, force(j,nx,2), 'time =', time
+    end if
+enddo
+
 ! Traction bc for side walls
 !! LEFT WALL
 !$OMP do
