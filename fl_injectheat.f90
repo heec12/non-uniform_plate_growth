@@ -86,7 +86,7 @@ goto 222 !Tian Comment this block, it make ninjbot become weird (always equals t
 !-------------------------------------------------------------------------------
 
 ! different M values in the brittle and ductile zones - Olive 4/08
-         if (temp(j,i).le.600) then
+         if (time.le.0.4*1e6*3.1536e7) then
           rate_inject=rate_inject_brittle
          else
           rate_inject=rate_inject_ductile
