@@ -402,7 +402,7 @@ if(nyhydro.gt.0) then
 endif
 
 do j=1,nz
-    if ((time.gt.121869852110.0 .and. time.le.121869852111.0)) then
+    if ((time.gt.3.85*1e3*3.1536e7)) then !121869852110.0. and. time.le.121869852111.0)) then
         print *, '1) left j=', j, force(j,1,1), 'time =', time
         print *, '2) left j=', j, force(j,1,2), 'time =', time
         print *, '1) right j=', j, force(j,nx,1), 'time =', time
@@ -417,8 +417,8 @@ do j=1,nz
 
 ! pressure from water sea on top
 !    rho_mantle_g = 1.e6 !3e8 !3300. * g
-    if ((time .lt. 14.2*1e3*3.1536e7)) then
-        rho_mantle_g = time*1.e7 / (1*1e6*3.1536e7)
+    if ((time .lt. 3.85*1e3*3.1536e7)) then
+        rho_mantle_g = time*1.e8 / (1*1e6*3.1536e7)
     else
         rho_mantle_g = 0
     end if    
@@ -465,8 +465,8 @@ do j=1,nz
 !p_est = pisos + 0.5*(den(iphsub)+drosub)*g*(cord(nz,i,2)-rzbo)
 !rosubg = g * (den(iphsub)+drosub) * (1-alfa(iphsub)*temp(nz,i)+beta(iphsub)*p_est)
 !        rho_mantle_g = 1.0e6 !3e8 !3300. * g
-        if ((time .lt. 14.2*1.e3*3.1536e7)) then
-            rho_mantle_g = time*1.e7 / (1*1e6*3.1536e7)
+        if ((time .lt. 3.85*1.e3*3.1536e7)) then
+            rho_mantle_g = time*1.e8 / (1*1e6*3.1536e7)
         else
             rho_mantle_g = 0
         end if
