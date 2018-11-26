@@ -447,128 +447,128 @@ do j=1,nz
         !endif
     else
         if(j.eq.1) then
-            force(j,1,1) = force(j,1,1) - 2748272910.4164391
-            force(j,1,2) = force(j,1,2) + 1835361956.0045931
+            force(j,1,1) = force(j,1,1) - 2772511879.1606851
+            force(j,1,2) = force(j,1,2) + 1851107371.9701347
         elseif(j.eq.2) then
-            force(j,1,1) = force(j,1,1) + 6116402938.0449286
-            force(j,1,2) = force(j,1,2) + 2588859961.2459397
+            force(j,1,1) = force(j,1,1) + 6147369066.5476007
+            force(j,1,2) = force(j,1,2) + 2618599619.2106161
         elseif(j.eq.3) then
-            force(j,1,1) = force(j,1,1) + 17111038783.990341
-            force(j,1,2) = force(j,1,2) + 3613845491.1236172
+            force(j,1,1) = force(j,1,1) + 17150625223.323690
+            force(j,1,2) = force(j,1,2) + 3647156761.7931528
         elseif(j.eq.4) then
-            force(j,1,1) = force(j,1,1) + 26702263578.216248
-            force(j,1,2) = force(j,1,2) + 4365026689.4011660
+            force(j,1,1) = force(j,1,1) + 26731113653.777958
+            force(j,1,2) = force(j,1,2) + 4396740221.0536909
         elseif(j.eq.5) then
-            force(j,1,1) = force(j,1,1) + 35830619899.019089
-            force(j,1,2) = force(j,1,2) + 4992805618.8505888
+            force(j,1,1) = force(j,1,1) + 35865872439.688438
+            force(j,1,2) = force(j,1,2) + 5021429434.3409786
         elseif(j.eq.6) then
-            force(j,1,1) = force(j,1,1) + 44680929366.182289
-            force(j,1,2) = force(j,1,2) + 5632265763.7193165
+            force(j,1,1) = force(j,1,1) + 44730837149.789131
+            force(j,1,2) = force(j,1,2) + 5663493635.7465458
         elseif(j.eq.7) then
-            force(j,1,1) = force(j,1,1) + 53358315566.769890
-            force(j,1,2) = force(j,1,2) + 6241032003.4354467
+            force(j,1,1) = force(j,1,1) + 53397359248.944855
+            force(j,1,2) = force(j,1,2) + 6282380903.8103409
         elseif(j.eq.8) then
-            force(j,1,1) = force(j,1,1) + 62137885676.840935
-            force(j,1,2) = force(j,1,2) + 6878487437.8966713
+            force(j,1,1) = force(j,1,1) + 62150368442.934250
+            force(j,1,2) = force(j,1,2) + 6912610827.9923925
         elseif(j.eq.9) then
-            force(j,1,1) = force(j,1,1) + 71204361593.618759
-            force(j,1,2) = force(j,1,2) + 7580835918.5424433
+            force(j,1,1) = force(j,1,1) + 71217263617.187027
+            force(j,1,2) = force(j,1,2) + 7608653457.5902281
         elseif(j.eq.10) then
-            force(j,1,1) = force(j,1,1) + 81263856729.717529
-            force(j,1,2) = force(j,1,2) + 8334132644.9650574
+            force(j,1,1) = force(j,1,1) + 81275792349.752380
+            force(j,1,2) = force(j,1,2) + 8357471523.2074280
         elseif(j.eq.11) then
-            force(j,1,1) = force(j,1,1) + 93663397180.344116
-            force(j,1,2) = force(j,1,2) + 7003342030.0599861
+            force(j,1,1) = force(j,1,1) + 93672545752.985382
+            force(j,1,2) = force(j,1,2) + 7025564499.6591930
         elseif(j.eq.12) then
-            force(j,1,1) = force(j,1,1) + 97447462417.585678
-            force(j,1,2) = force(j,1,2) + 9630661994.6603203
+            force(j,1,1) = force(j,1,1) + 97463648910.896515
+            force(j,1,2) = force(j,1,2) + 9639521856.7541275
         elseif(j.eq.13) then
-            force(j,1,1) = force(j,1,1) + 91026839667.313629
-            force(j,1,2) = force(j,1,2) + 1641438515.7779603
+            force(j,1,1) = force(j,1,1) + 91043637396.485153
+            force(j,1,2) = force(j,1,2) + 1644097760.1884775
         elseif(j.eq.14) then
-            force(j,1,1) = force(j,1,1) + 98345356917.754395
-            force(j,1,2) = force(j,1,2) + 191752490.99300003
+            force(j,1,1) = force(j,1,1) + 98362236819.562576
+            force(j,1,2) = force(j,1,2) + 194190868.87531996
         elseif(j.eq.15) then
-            force(j,1,1) = force(j,1,1) + 106439163934.14070
-            force(j,1,2) = force(j,1,2) + 591707904.12245846
-        elseif(j.eq.16) then
-            force(j,1,1) = force(j,1,1) + 114519548987.10474
-            force(j,1,2) = force(j,1,2) + 222905194.84442663
+            force(j,1,1) = force(j,1,1) + 106455940801.41135
+            force(j,1,2) = force(j,1,2) + 594740167.14225292
+        elseif(j.wq.16) then    
+            force(j,1,1) = force(j,1,1) + 114535820366.86194
+            force(j,1,2) = force(j,1,2) + 226148080.39129925
         elseif(j.eq.17) then
-            force(j,1,1) = force(j,1,1) + 122720519242.91457
-            force(j,1,2) = force(j,1,2) + 346513061.68616056
+            force(j,1,1) = force(j,1,1) + 122736902212.65063
+            force(j,1,2) = force(j,1,2) + 351491455.52102232
         elseif(j.eq.18) then
-            force(j,1,1) = force(j,1,1) + 130897916136.60071
-            force(j,1,2) = force(j,1,2) + 171584555.76412392
+            force(j,1,1) = force(j,1,1) + 130914291840.54945
+            force(j,1,2) = force(j,1,2) + 176772845.18415451
         elseif(j.eq.19) then
-            force(j,1,1) = force(j,1,1) + 139134753754.36417
-            force(j,1,2) = force(j,1,2) + 146237417.45102406
+            force(j,1,1) = force(j,1,1) + 139149937354.01999
+            force(j,1,2) = force(j,1,2) + 150698120.64690018
         elseif(j.eq.20) then
-            force(j,1,1) = force(j,1,1) + 147387544263.11316
-            force(j,1,2) = force(j,1,2) + 16361320.445938110
+            force(j,1,1) = force(j,1,1) + 147401539907.14032
+            force(j,1,2) = force(j,1,2) + 19618379.133758545
         elseif(j.eq.21) then
-            force(j,1,1) = force(j,1,1) + 155696663201.50354
-            force(j,1,2) = force(j,1,2) - 79670123.641295910
+            force(j,1,1) = force(j,1,1) + 155709091661.09506 
+            force(j,1,2) = force(j,1,2) - 76738594.925148964
         elseif(j.eq.22) then
-            force(j,1,1) = force(j,1,1) + 164036736889.04822
-            force(j,1,2) = force(j,1,2) - 188576391.09359694
+            force(j,1,1) = force(j,1,1) + 164046451117.19232
+            force(j,1,2) = force(j,1,2) - 185849507.55278587
         elseif(j.eq.23) then
-            force(j,1,1) = force(j,1,1) + 172392460846.37064
-            force(j,1,2) = force(j,1,2) - 269383907.20983744
+            force(j,1,1) = force(j,1,1) + 172400540410.13101
+            force(j,1,2) = force(j,1,2) - 268515692.66992140
         elseif(j.eq.24) then
-            force(j,1,1) = force(j,1,1) + 180759244882.09344
-            force(j,1,2) = force(j,1,2) - 355545881.95638084
+            force(j,1,1) = force(j,1,1) + 180766329317.52972
+            force(j,1,2) = force(j,1,2) - 353956758.14543915
         elseif(j.eq.25) then
-            force(j,1,1) = force(j,1,1) + 189177920364.40732
-            force(j,1,2) = force(j,1,2) - 445475540.71091461
+            force(j,1,1) = force(j,1,1) + 189183494633.77896
+            force(j,1,2) = force(j,1,2) - 444742589.74883461
         elseif(j.eq.26) then
-            force(j,1,1) = force(j,1,1) + 197637371946.97766
-            force(j,1,2) = force(j,1,2) - 503441064.32550764
+            force(j,1,1) = force(j,1,1) + 197642112456.51712
+            force(j,1,2) = force(j,1,2) - 502732317.71121788
         elseif(j.eq.27) then
-            force(j,1,1) = force(j,1,1) + 206108126794.22797
-            force(j,1,2) = force(j,1,2) - 558405622.41003513
+            force(j,1,1) = force(j,1,1) + 206111904342.74066
+            force(j,1,2) = force(j,1,2) - 557888893.39622593
         elseif(j.eq.28) then
-            force(j,1,1) = force(j,1,1) + 214609824114.71829
-            force(j,1,2) = force(j,1,2) - 631589190.89238358
+            force(j,1,1) = force(j,1,1) + 214613038077.78442
+            force(j,1,2) = force(j,1,2) - 631045736.93895864
         elseif(j.eq.29) then
-            force(j,1,1) = force(j,1,1) + 223089152678.70657
-            force(j,1,2) = force(j,1,2) - 746910579.91093731
+            force(j,1,1) = force(j,1,1) + 223091928068.71719
+            force(j,1,2) = force(j,1,2) - 746424484.28039837
         elseif(j.eq.30) then
-            force(j,1,1) = force(j,1,1) + 231572135593.86963
-            force(j,1,2) = force(j,1,2) - 852219435.41282749
+            force(j,1,1) = force(j,1,1) + 231574502477.35065
+            force(j,1,2) = force(j,1,2) - 851761335.24914074
         elseif(j.eq.31) then
-            force(j,1,1) = force(j,1,1) + 240084408836.58768
-            force(j,1,2) = force(j,1,2) - 1003767979.0382090
+            force(j,1,1) = force(j,1,1) + 240086392165.11655
+            force(j,1,2) = force(j,1,2) - 1003326259.0377941
         elseif(j.eq.32) then
-            force(j,1,1) = force(j,1,1) + 248610325921.29648
-            force(j,1,2) = force(j,1,2) - 1110593809.2604723
+            force(j,1,1) = force(j,1,1) + 248611935286.99850  
+            force(j,1,2) = force(j,1,2) - 1110181271.7651095
         elseif(j.eq.33) then
-            force(j,1,1) = force(j,1,1) + 257174189806.74487
-            force(j,1,2) = force(j,1,2) - 1316683926.5874944
+            force(j,1,1) = force(j,1,1) + 257175435132.34756
+            force(j,1,2) = force(j,1,2) - 1316312941.6318150
         elseif(j.eq.34) then
-            force(j,1,1) = force(j,1,1) + 265745144840.12967
-            force(j,1,2) = force(j,1,2) - 1405522978.1025901
+            force(j,1,1) = force(j,1,1) + 265746045694.70230
+            force(j,1,2) = force(j,1,2) - 1405216781.2217941
         elseif(j.eq.35) then
-            force(j,1,1) = force(j,1,1) + 274380069057.13968
-            force(j,1,2) = force(j,1,2) - 1714722623.3716435
+            force(j,1,1) = force(j,1,1) + 274380671896.55719
+            force(j,1,2) = force(j,1,2) - 1714497826.3099451
         elseif(j.eq.36) then
-            force(j,1,1) = force(j,1,1) + 282998578074.14081
-            force(j,1,2) = force(j,1,2) - 1732695485.2171059
+            force(j,1,1) = force(j,1,1) + 282998955044.36511
+            force(j,1,2) = force(j,1,2) - 1732552148.5807509
         elseif(j.eq.37) then
-            force(j,1,1) = force(j,1,1) + 291735901524.72498
-            force(j,1,2) = force(j,1,2) - 2258093168.5952892
+            force(j,1,1) = force(j,1,1) + 291736127087.70844
+            force(j,1,2) = force(j,1,2) - 2258011612.5836325
         elseif(j.eq.38) then
-            force(j,1,1) = force(j,1,1) + 300351829919.42566
-            force(j,1,2) = force(j,1,2) - 2032572717.0067153
+            force(j,1,1) = force(j,1,1) + 300351962482.39581
+            force(j,1,2) = force(j,1,2) - 2032538047.9748321
         elseif(j.eq.39) then
-            force(j,1,1) = force(j,1,1) + 309214654833.23981
-            force(j,1,2) = force(j,1,2) - 3130813832.2078409
+            force(j,1,1) = force(j,1,1) + 309214730616.05273
+            force(j,1,2) = force(j,1,2) - 3130803951.6576819
         elseif(j.eq.40) then
-            force(j,1,1) = force(j,1,1) + 317094463961.80096
-            force(j,1,2) = force(j,1,2) - 1735267442.2393627
+            force(j,1,1) = force(j,1,1) + 317094497208.67175
+            force(j,1,2) = force(j,1,2) - 1735279304.1086807
         elseif(j.eq.nz) then
-            force(j,1,1) = force(j,1,1) + 157840450051.41693
-            force(j,1,2) = force(j,1,2) - 4162869132.3101807
+            force(j,1,1) = force(j,1,1) + 157840443523.02090
+            force(j,1,2) = force(j,1,2) - 4162873390.3673401
         end if
 !force(j,1,1) = force(j,1,1) +
 !force(j,1,2) = force(j,1,2) +
@@ -621,128 +621,128 @@ do j=1,nz
     !write(*,*) i,pisos,force(nz,i,1),force(nz,i,2),press_norm_l,press_norm_r,dlx_l,dlx_r,dly_l,dly_r
     else
         if(j.eq.1) then
-            force(j,1,1) = force(j,1,1) + 9635904.9923395775
-            force(j,1,2) = force(j,1,2) + 4.2432808542488090
+            force(j,1,1) = force(j,1,1) + 3919368836.2816157
+            force(j,1,2) = force(j,1,2) + 2207273655.1352592
         elseif(j.eq.2) then
-            force(j,1,1) = force(j,1,1) + 19271848.909105614
-            force(j,1,2) = force(j,1,2) + 6.6298496674611282
+            force(j,1,1) = force(j,1,1) - 4362941711.4482355
+            force(j,1,2) = force(j,1,2) + 2722041939.2233171
         elseif(j.eq.3) then
-            force(j,1,1) = force(j,1,1) + 19271887.835648179                 
-            force(j,1,2) = force(j,1,2) + 3.3121180993613981
+            force(j,1,1) = force(j,1,1) - 15544765363.970612
+            force(j,1,2) = force(j,1,2) + 3648446572.4409709
         elseif(j.eq.4) then
-            force(j,1,1) = force(j,1,1) + 19271887.839518070
-            force(j,1,2) = force(j,1,2) + 1.5024337937545822
+            force(j,1,1) = force(j,1,1) - 25337705937.219574
+            force(j,1,2) = force(j,1,2) + 4386500329.2463531
         elseif(j.eq.5) then
-            force(j,1,1) = force(j,1,1) + 19271887.841720786
-            force(j,1,2) = force(j,1,2) + 0.98099165917289255
+            force(j,1,1) = force(j,1,1) - 34354865535.907543
+            force(j,1,2) = force(j,1,2) + 5055818367.5982513
         elseif(j.eq.6) then
-            force(j,1,1) = force(j,1,1) + 19271887.842367791
-            force(j,1,2) = force(j,1,2) + 0.79635680949670928
+            force(j,1,1) = force(j,1,1) - 43108041180.903374
+            force(j,1,2) = force(j,1,2) + 5617751395.5300255
         elseif(j.eq.7) then
-            force(j,1,1) = force(j,1,1) + 19271887.842747979
-            force(j,1,2) = force(j,1,2) + 0.78269275565155616
+            force(j,1,1) = force(j,1,1) - 51864793780.329102
+            force(j,1,2) = force(j,1,2) + 6170390041.0386391
         elseif(j.eq.8) then
-            force(j,1,1) = force(j,1,1) + 19271887.843145840
-            force(j,1,2) = force(j,1,2) + 0.88581331228314453
+            force(j,1,1) = force(j,1,1) - 60696960786.750519
+            force(j,1,2) = force(j,1,2) + 6825094155.1005373
         elseif(j.eq.9) then
-            force(j,1,1) = force(j,1,1) + 19271887.844512574
-            force(j,1,2) = force(j,1,2) + 1.1256111090441796
+            force(j,1,1) = force(j,1,1) - 69775784805.669022
+            force(j,1,2) = force(j,1,2) + 7454434813.7655754
         elseif(j.eq.10) then
-            force(j,1,1) = force(j,1,1) + 19271887.851549309
-            force(j,1,2) = force(j,1,2) + 2.2766775270314743
+            force(j,1,1) = force(j,1,1) - 80052457776.723038
+            force(j,1,2) = force(j,1,2) + 8180152177.0099554
         elseif(j.eq.11) then
-            force(j,1,1) = force(j,1,1) + 19271887.862240229
-            force(j,1,2) = force(j,1,2) + 8.1541321322475149
+            force(j,1,1) = force(j,1,1) - 92523815015.974976 
+            force(j,1,2) = force(j,1,2) + 6998205903.1676826
         elseif(j.eq.12) then
-            force(j,1,1) = force(j,1,1) + 19271887.850120574
-            force(j,1,2) = force(j,1,2) + 19.179008852316841
+            force(j,1,1) = force(j,1,1) - 96910681473.188889
+            force(j,1,2) = force(j,1,2) + 9358340644.3453693
         elseif(j.eq.13) then
-            force(j,1,1) = force(j,1,1) + 19271887.824643321
-            force(j,1,2) = force(j,1,2) + 15.042208828395088
+            force(j,1,1) = force(j,1,1) - 90941533896.161743
+            force(j,1,2) = force(j,1,2) + 1627185064.7878022
         elseif(j.eq.14) then
-            force(j,1,1) = force(j,1,1) + 19271887.826852895
-            force(j,1,2) = force(j,1,2) + 3.5295121454124763
+            force(j,1,1) = force(j,1,1) - 98274745002.433594
+            force(j,1,2) = force(j,1,2) + 199581699.74137735
         elseif(j.eq.15) then
-            force(j,1,1) = force(j,1,1) + 19271887.839451160
-            force(j,1,2) = force(j,1,2) + 1.7612601335274785
+            force(j,1,1) = force(j,1,1) - 106367756682.05446
+            force(j,1,2) = force(j,1,2) + 583089167.93898201
         elseif(j.eq.16) then
-            force(j,1,1) = force(j,1,1) + 19271887.841750495
-            force(j,1,2) = force(j,1,2) + 1.1822883907661250
+            force(j,1,1) = force(j,1,1) - 114442586979.70863
+            force(j,1,2) = force(j,1,2) + 228930512.34689569
         elseif(j.eq.17) then
-            force(j,1,1) = force(j,1,1) + 19271887.842225894
-            force(j,1,2) = force(j,1,2) + 1.0638936880087504
+            force(j,1,1) = force(j,1,1) - 122643312517.22057
+            force(j,1,2) = force(j,1,2) + 336140835.00807238
         elseif(j.eq.18) then
-            force(j,1,1) = force(j,1,1) + 19271887.842225283
-            force(j,1,2) = force(j,1,2) + 0.92630799009655529
+            force(j,1,1) = force(j,1,1) - 130827983101.38046
+            force(j,1,2) = force(j,1,2) + 161017544.21415186
         elseif(j.eq.19) then
-            force(j,1,1) = force(j,1,1) + 19271887.842328504
-            force(j,1,2) = force(j,1,2) + 0.83677884727276619
+            force(j,1,1) = force(j,1,1) - 139070694053.38589
+            force(j,1,2) = force(j,1,2) + 125743002.27758646
         elseif(j.eq.20) then
-            force(j,1,1) = force(j,1,1) + 19271887.842387535
-            force(j,1,2) = force(j,1,2) + 0.78684253031813955
+            force(j,1,1) = force(j,1,1) - 147326648099.60791
+            force(j,1,2) = force(j,1,2) - 8164114.7779426575
         elseif(j.eq.21) then
-            force(j,1,1) = force(j,1,1) + 19271887.842311502
-            force(j,1,2) = force(j,1,2) + 0.74656277592271125
+            force(j,1,1) = force(j,1,1) - 155632540306.09311 
+            force(j,1,2) = force(j,1,2) - 110732340.45475149
         elseif(j.eq.22) then
-            force(j,1,1) = force(j,1,1) + 19271887.842279427
-            force(j,1,2) = force(j,1,2) + 0.67672070796412842
+            force(j,1,1) = force(j,1,1) - 163962826619.91904
+            force(j,1,2) = force(j,1,2) - 221794069.01076221
         elseif(j.eq.23) then
-            force(j,1,1) = force(j,1,1) + 19271887.842268839
-            force(j,1,2) = force(j,1,2) + 0.60428703377646487
+            force(j,1,1) = force(j,1,1) - 172313695654.79288
+            force(j,1,2) = force(j,1,2) - 310499162.52732563
         elseif(j.eq.24) then
-            force(j,1,1) = force(j,1,1) + 19271887.842289735
-            force(j,1,2) = force(j,1,2) + 0.5304163027891957
+            force(j,1,1) = force(j,1,1) - 180688256926.06458
+            force(j,1,2) = force(j,1,2) - 388190100.23139668
         elseif(j.eq.25) then
-            force(j,1,1) = force(j,1,1) + 19271887.842316724
-            force(j,1,2) = force(j,1,2) + 0.46800558054651192
+            force(j,1,1) = force(j,1,1) - 189094465561.68448
+            force(j,1,2) = force(j,1,2) - 455728553.56906319
         elseif(j.eq.26) then
-            force(j,1,1) = force(j,1,1) + 19271887.842412531
-            force(j,1,2) = force(j,1,2) + 0.41489628430764092
+            force(j,1,1) = force(j,1,1) - 197534040052.32297
+            force(j,1,2) = force(j,1,2) - 512237179.93121862
         elseif(j.eq.27) then
-            force(j,1,1) = force(j,1,1) + 19271887.842359774
-            force(j,1,2) = force(j,1,2) + 0.36825636040924375
+            force(j,1,1) = force(j,1,1) - 206006287602.67157
+            force(j,1,2) = force(j,1,2) - 562870273.89819956
         elseif(j.eq.28) then
-            force(j,1,1) = force(j,1,1) + 19271887.842288785
-            force(j,1,2) = force(j,1,2) + 0.32559856853044633
+            force(j,1,1) = force(j,1,1) - 214531196007.73810
+            force(j,1,2) = force(j,1,2) - 629102974.47695065
         elseif(j.eq.29) then
-            force(j,1,1) = force(j,1,1) + 19271887.842379756
-            force(j,1,2) = force(j,1,2) + 0.28626586156986522
+            force(j,1,1) = force(j,1,1) - 222998652926.62656
+            force(j,1,2) = force(j,1,2) - 746748373.96940136
         elseif(j.eq.30) then
-            force(j,1,1) = force(j,1,1) + 19271887.842395425
-            force(j,1,2) = force(j,1,2) + 0.25280475373749101
+            force(j,1,1) = force(j,1,1) - 231470495045.09955
+            force(j,1,2) = force(j,1,2) - 856951166.78671741
         elseif(j.eq.31) then
-            force(j,1,1) = force(j,1,1) + 19271887.842403207
-            force(j,1,2) = force(j,1,2) + 0.22212856188597258
+            force(j,1,1) = force(j,1,1) - 239975003980.63934
+            force(j,1,2) = force(j,1,2) - 1019335034.8649273
         elseif(j.eq.32) then
-            force(j,1,1) = force(j,1,1) + 19271887.842367694
-            force(j,1,2) = force(j,1,2) + 0.18629347705240723
+            force(j,1,1) = force(j,1,1) - 248502630156.26144
+            force(j,1,2) = force(j,1,2) - 1130508198.1725221
         elseif(j.eq.33) then
-            force(j,1,1) = force(j,1,1) + 19271887.842314027
-            force(j,1,2) = force(j,1,2) + 0.14080338869028367
+            force(j,1,1) = force(j,1,1) - 257074891020.60251
+            force(j,1,2) = force(j,1,2) - 1339377959.9246883
         elseif(j.eq.34) then
-            force(j,1,1) = force(j,1,1) + 19271887.842293307
-            force(j,1,2) = force(j,1,2) + 8.7595209240843117e-2
+            force(j,1,1) = force(j,1,1) - 265658034094.64590
+            force(j,1,2) = force(j,1,2) - 1427157801.7170124
         elseif(j.eq.35) then
-            force(j,1,1) = force(j,1,1) + 19271887.842236798
-            force(j,1,2) = force(j,1,2) + 2.2712544986918291e-2
+            force(j,1,1) = force(j,1,1) - 274307711716.32956
+            force(j,1,2) = force(j,1,2) - 1735814244.3973713
         elseif(j.eq.36) then
-            force(j,1,1) = force(j,1,1) + 19271887.842188071
-            force(j,1,2) = force(j,1,2) + 7.8979934503124474e-2
+            force(j,1,1) = force(j,1,1) - 282941155379.53113
+            force(j,1,2) = force(j,1,2) - 1749420566.1836853
         elseif(j.eq.37) then
-            force(j,1,1) = force(j,1,1) + 19271887.842104360
-            force(j,1,2) = force(j,1,2) - 0.20984952132466375
+            force(j,1,1) = force(j,1,1) - 291692348134.44769
+            force(j,1,2) = force(j,1,2) - 2273369123.8404708
         elseif(j.eq.38) then
-            force(j,1,1) = force(j,1,1) + 19271887.841639876
-            force(j,1,2) = force(j,1,2) + 0.25382721734427949
+            force(j,1,1) = force(j,1,1) - 300319559314.79816
+            force(j,1,2) = force(j,1,2) - 2043391963.2981815
         elseif(j.eq.39) then
-            force(j,1,1) = force(j,1,1) + 19271887.840730682
-            force(j,1,2) = force(j,1,2) - 1.0494771878631513
+            force(j,1,1) = force(j,1,1) - 309191664413.28156
+            force(j,1,2) = force(j,1,2) - 3141653229.0652809
         elseif(j.eq.40) then
-            force(j,1,1) = force(j,1,1) + 19271887.840703972
-            force(j,1,2) = force(j,1,2) - 2.4714810467224981
+            force(j,1,1) = force(j,1,1) - 317077029155.09100
+            force(j,1,2) = force(j,1,2) - 1742905002.7869158
         elseif(j.eq.nz) then
-            force(j,1,1) = force(j,1,1) + 9635943.9205983542
-            force(j,1,2) = force(j,1,2) - 1.7128453365659198
+            force(j,1,1) = force(j,1,1) - 157828505360.35623
+            force(j,1,2) = force(j,1,2) - 4172846153.0714111
         end if
     end if
     balance(j,1,1) = 1.0d+17
