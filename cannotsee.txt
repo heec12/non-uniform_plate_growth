@@ -1,0 +1,204 @@
+arrays.f90:7:  real*8, pointer, save :: cord(:,:,:), temp(:,:), vel(:,:,:), stress0(:,:,:,:), &
+arrays.f90:13:  ! temporary array
+arrays.f90:25:    allocate(temp(nz, nx))
+flac.f90:67:! Adjust real masses due to temperature
+fl_injectheat.f90:97:   T0=0.25*(temp(j1,i1)+temp(j1,i)+temp(j,i1)+temp(j,i))
+fl_injectheat.f90:98:   dtemp=dtemp_inj(T0,tl(iph),ts(iph),rfac,fdum)
+fl_injectheat.f90:99:   dtemp=dmin1(dtemp,tl(iph)-T0)
+fl_injectheat.f90:100:   dtemp11=dmax1(dtemp,0.0)
+fl_injectheat.f90:103:   T0=0.25*(temp(j1,i)+temp(j1,i2)+temp(j,i)+temp(j,i2))
+fl_injectheat.f90:104:   dtemp=dtemp_inj(T0,tl(iph),ts(iph),rfac,fdum)
+fl_injectheat.f90:105:   dtemp=dmin1(dtemp,tl(iph)-T0)
+fl_injectheat.f90:106:   dtemp12=dmax1(dtemp,0.0)
+fl_injectheat.f90:109:   T0=0.25*(temp(j,i1)+temp(j,i)+temp(j2,i1)+temp(j2,i))
+fl_injectheat.f90:110:   dtemp=dtemp_inj(T0,tl(iph),ts(iph),rfac,fdum)
+fl_injectheat.f90:111:   dtemp=dmin1(dtemp,tl(iph)-T0)
+fl_injectheat.f90:112:   dtemp21=dmax1(dtemp,0.0)
+fl_injectheat.f90:115:   T0=0.25*(temp(j,i)+temp(j,i2)+temp(j2,i)+temp(j2,i2))
+fl_injectheat.f90:116:   dtemp=dtemp_inj(T0,tl(iph),ts(iph),rfac,fdum)
+fl_injectheat.f90:117:   dtemp=dmin1(dtemp,tl(iph)-T0)
+fl_injectheat.f90:118:   dtemp22=dmax1(dtemp,0.0)
+fl_injectheat.f90:143:! Update Nodal temperatures
+fl_injectheat.f90:145:  dtemp_ave=(dtemp11*f11*a22+dtemp12*f12*a21+dtemp21*f21*a12+dtemp22*f22*a11)/atot
+fl_injectheat.f90:146:  !print *,'dtemp_ave =',dtemp_ave
+fl_injectheat.f90:147:  temp(j,i)=temp(j,i)+dtemp_ave
+fl_injectheat.f90:148:  if(temp(j,i)>2000 .or. isnan(temp(j,i)) .or. temp(j,i)<0) then
+fl_injectheat.f90:149:!     print *, 'j=',j,'i=',i,'dtemp_ave=',dtemp_ave ,'temp(',j,',',i,')=',temp(j  ,i  )
+fl_injectheat.f90:152:! There is/was a bug that make dtemp_ave=NAN, with iinj1=1,
+fl_injectheat.f90:155:  if (dabs(dtemp_ave).gt.10.*tl(iph)) then
+fl_injectheat.f90:156:    write(*,'(8ES11.3,3i4)') dtemp11, dtemp12, dtemp21, dtemp22, dtemp_ave, dble(ninj), &
+fl_injectheat.f90:168:    temp(1,i) = t_top
+fl_injectheat.f90:177:    temp(j ,1)  = temp(j,2)
+fl_injectheat.f90:188:function dtemp_inj(T0,Tliq,Tsol,rfac,fdum)
+fl_injectheat.f90:196:!  dtemp_inj=( (Tliq-T0) + fdum*(Tliq-Tsol) )*rfac   
+fl_injectheat.f90:198:!  dtemp_inj=(Tliq-T0)*(1+fdum)*rfac/(1.0+fdum*rfac)
+fl_injectheat.f90:206:   dtemp_inj=( (Tliq-T0) + fdum*(Tliq-Tsol) ) * (rfac/(1+rfac))
+fl_injectheat.f90:209:!  dtemp_inj=(Tliq-T0) * (rfac/(1+rfac))
+fl_injectheat.f90:211:   dtemp_inj=(Tliq-T0) * (rfac/(1+rfac))
+fl_injectheat.f90:213:   dtemp_inj = 0.
+fl_node.f90:366:        rosubg = g * (den(iphsub)+drosub) * (1-alfa(iphsub)*temp(nz,i)+beta(iphsub)*p_est)
+fl_rheol.f90:26:!if(iynts.eq.1) call init_temp
+fl_rheol.f90:67:        temp_ave = 0.25 * (temp(j,i) + temp(j+1,i) + temp(j,i+1) + temp(j+1,i+1))
+fl_rheol.f90:69:!         if (temp_ave.le.600) then
+fl_rheol.f90:71:!         elseif (temp_ave.gt.600) then
+fl_rheol.f90:81:!         elseif ((temp_ave.gt.600).and.(time .lt. time_max*0.3)) then
+fl_rheol.f90:83:!         elseif ((temp_ave.gt.600).and.(time .ge. time_max*0.3).and.(time .lt. time_max*0.6)) then
+fl_rheol.f90:85:!         elseif ((temp_ave.gt.600).and.(time .ge. time_max*0.6).and.(time .lt. time_max)) then
+fl_rheol.f90:99:!        if (temp_ave.lt.600. .and. (zcord_top-zcord_ave) .le. 7e3 .and.(fa * SIN(2 * pi/fb * time) + fc).ge.0.6) then
+fl_rheol.f90:106:!!        elseif (temp_ave.lt.600. .and. (zcord_top-zcord_ave) .le. 7e3 .and.(fa * SIN(2 * pi/fb * time) + fc).le.0.25) then
+fl_rheol.f90:132:        if (istress_therm.gt.0) stherm = -alfa(iph)*bulkm*(temp(j,i)-temp0(j,i))
+fl_therm.f90:34:! saving old temperature
+fl_therm.f90:36:!temp(j,i) = temp0(j,i)
+fl_therm.f90:37:if (istress_therm.gt.0) temp0(1:nz,1:nx) = temp(1:nz,1:nx)
+fl_therm.f90:39:!temp(1:nz,1:nx) = temp0(1:nz,1:nx)
+fl_therm.f90:52:!$OMP                  qs,real_area13,area_n,rhs,temp_ave,zcord_ave)
+fl_therm.f90:62:    temp(j,i  ) = temp(j,i  ) + andesitic_melt_vol(i  ) * heat_latent_magma / quad_area / cp_eff
+fl_therm.f90:63:    temp(j,i+1) = temp(j,i+1) + andesitic_melt_vol(i+1) * heat_latent_magma / quad_area / cp_eff
+fl_therm.f90:78:        temp_ave = 0.25 * (temp(j,i) + temp(j+1,i) + temp(j,i+1) + temp(j+1,i+1))
+fl_therm.f90:81:        if (temp_ave.lt.600. .and. (zcord_top-zcord_ave).le.7e3) then
+fl_therm.f90:105:        t1 = temp (j   ,i  )
+fl_therm.f90:106:        t2 = temp (j+1 ,i  )
+fl_therm.f90:107:        t3 = temp (j   ,i+1)
+fl_therm.f90:108:        t4 = temp (j+1 ,i+1)
+fl_therm.f90:244:        temp(j,i) = temp(j,i)+rhs*dt_therm/area_n
+fl_therm.f90:254:    temp(1,i) = t_top
+fl_therm.f90:256:    if( itemp_bc.eq.1 ) then
+fl_therm.f90:257:        temp(nz,i) = bot_bc
+fl_therm.f90:258:    elseif( itemp_bc.eq.2 ) then
+fl_therm.f90:264:        temp(nz,i) = temp(nz-1,i)  +  bot_bc * ( cord(nz-1,i,2)-cord(nz,i,2) ) / cond_eff
+fl_therm.f90:270:!temp(1:nz,1:nx) = temp00(1:nz,1:nx)
+fl_therm.f90:275:    temp(j ,1)  = temp(j,2)
+fl_therm.f90:276:    temp(j, nx) = temp(j,nx-1)
+init_stress.f90:26:        tmpr = 0.25*(temp(j,i)+temp(j+1,i)+temp(j,i+1)+temp(j+1,i+1))
+init_temp.f90:1:! Initiate temperature profile
+init_temp.f90:3:subroutine init_temp
+init_temp.f90:10:!  Read distribution of temperatures from the dat file
+init_temp.f90:11:if (irtemp .gt. 0) then
+init_temp.f90:12:    open( 1, file=tempfile, status='old', err=101 )
+init_temp.f90:15:        read( 1, * ,err=102 ) temp(j,i)
+init_temp.f90:16:!     if(temp(j,i).ge.1000.) temp(j,i) = 1000.
+init_temp.f90:22:    101 call SysMsg('INIT_TEMP: Cannot open file with temperatures initial distrib!')
+init_temp.f90:24:    102 call SysMsg('INIT_TEMP: Error reading file with temperatures initial distrib!')
+init_temp.f90:55:                temp(j,i)=t_top+((tbos-t_top)/geoth)*yc
+init_temp.f90:57:                temp(j,i)=tbos + ((tbos-t_top)/(0.5*geoth))*(yc-geoth)
+init_temp.f90:59:            if(temp(j,i).gt.t_bot) temp(j,i) = t_bot
+init_temp.f90:63:        temp(j,nx) = temp(j,nx-2)
+init_temp.f90:66:        temp(nz,i) = temp(nz-1,i)
+init_temp.f90:69:    open( 1, file='temp0.dat' )
+init_temp.f90:71:        write(1,'(f5.1,1x,f6.1,1x,f6.1,1x,f6.1)') -cord (j,1,2)*1.e-3, temp(j,1)
+init_temp.f90:112:                      temp(j,i) = t_top + (t_bot - t_top) * erf(y)
+init_temp.f90:114:                      temp(j,i) = 1300.0
+init_temp.f90:116:!                    print *, i,j,cord(j,i,2), temp(j,i)
+init_temp.f90:117:                    temp00(j,i) = temp(j,i)
+init_temp.f90:152:!!$                    temp(j,i) = tss +2./pi*(t_bot-t_top)*tt
+init_temp.f90:153:!!$                    if(temp(j,i).gt.1330.or.y.gt.200.) temp(j,i)= 1330.
+init_temp.f90:154:!!$                    if (j.eq.1) temp(j,i) = t_top
+init_temp.f90:163:        temp(j,1:nx) = t_top + 20 * abs(j)
+init_temp.f90:168:            temp(j,1:nx) = 240 + 530 * abs(i)
+init_temp.f90:173:        temp(j,1:nx) = t_bot
+init_temp.f90:177:    ! estimate initial temperature as linear (for first approx. of conductivities)
+init_temp.f90:179:        temp(j,1:nx) = (t_bot-t_top)/abs(rzbo)*abs(cord(j,1,2)-z0) + t_top
+init_temp.f90:191:! Initial rectangular temperature perturbation
+init_temp.f90:192:if( temp_per.ne.0. ) then
+init_temp.f90:193:    temp(iy1t:iy2t,ix1t:ix2t) = temp(iy1t:iy2t,ix1t:ix2t) + temp_per
+init_temp.f90:197:    ! Initial gaussian temperature perturbation
+init_temp.f90:213:                temp(k,j) = min(t_bot, temp(k,j)+pert*pert2)
+init_temp.f90:231:                temp(k,j+kk) = max(t_top, min(t_bot, temp(k,j+kk)+pert))
+init_temp.f90:250:                temp(k,j-kk) = max(t_top, min(t_bot, temp(k,j-kk)+pert))
+init_temp.f90:260:end subroutine init_temp
+init_temp.f90:263:subroutine sidewalltemp(i1, i2)
+init_temp.f90:264:  use arrays, only : temp, cord
+init_temp.f90:283:      stop 'nzone_age < 1, cannot determine temperature of incoming material'
+init_temp.f90:300:              temp(j,i) = t_top + (t_bot - t_top) * erf(y)
+init_temp.f90:301:              !print *, j, age_1(n), -cord(j,i,2), temp(j,i)
+init_temp.f90:330:!!$              temp(j,i) = tss +2./pi*(t_bot-t_top)*tt
+init_temp.f90:331:!!$              if(temp(j,i).gt.1330.or.y.gt.200.) temp(j,i)= 1330.
+init_temp.f90:332:!!$              if (j.eq.1) temp(j,i) = t_top
+init_temp.f90:348:end subroutine sidewalltemp
+init_temp.f90:382:write(*,*) 'ATTENTION! Special form of initial temperature distribution !'
+matprops.f90:11:  tmpr = 0.25*(temp(j,i)+temp(j+1,i)+temp(j,i+1)+temp(j+1,i+1))
+matprops.f90:118:!!$tmpr = 0.25*(temp(j,i)+temp(j+1,i)+temp(j,i+1)+temp(j+1,i+1))
+matprops.f90:135:!!$    tmpr = 0.25*(temp(j,i)+temp(j+1,i)+temp(j,i+1)+temp(j+1,i+1))
+matprops.f90:164:    !    tmpr = 0.25*(temp(j,i)+temp(j+1,i)+temp(j,i+1)+temp(j+1,i+1))
+matprops.f90:186:        !    tmpr = 0.25*(temp(j,i)+temp(j+1,i)+temp(j,i+1)+temp(j+1,i+1))
+matprops.f90:223:tmpr = 0.25*(temp(j,i)+temp(j+1,i)+temp(j,i+1)+temp(j+1,i+1))
+newphase2marker.f90:48:! min. temperature (C) of eclogite phase transition
+newphase2marker.f90:49:real*8, parameter :: min_eclogite_temp = 500.
+newphase2marker.f90:52:! temperature (C) of serpentine phase transition
+newphase2marker.f90:54:real*8, parameter :: serpentine_temp = 550.
+newphase2marker.f90:55:!real*8, parameter :: serpentine_temp = 1550.
+newphase2marker.f90:56:!temperature (C) and depth (m) of 10% partial melting of upper mantle.
+newphase2marker.f90:58:real*8, parameter :: partial_melt_temp = 600.
+newphase2marker.f90:59:!real*8, parameter :: partial_melt_temp = 1300.
+newphase2marker.f90:135:temp_ave = 0.25 * (temp(j,i) + temp(j,i+1) + temp(j+1,i) + temp(j+1,i+1))
+newphase2marker.f90:227:     !  if ((temp_ave.gt.600) .and. (time .lt. time_max*0.1)) then
+newphase2marker.f90:229:     !  else if ((temp_ave.gt.600) .and. (time .ge. time_max*0.1) .and. (time .lt. time_max*0.2)) then
+newphase2marker.f90:231:     !  else if ((temp_ave.gt.600) .and. (time .ge. time_max*0.2) .and. (time .lt. time_max*0.3)) then
+newphase2marker.f90:233:     !  else if ((temp_ave.gt.600) .and. (time .ge. time_max*0.3) .and. (time .lt. time_max*0.4)) then
+newphase2marker.f90:241:! storing plastic strain in temporary array
+newphase2marker.f90:294:!! min. temperature (C) of eclogite phase transition
+newphase2marker.f90:295:!real*8, parameter :: min_eclogite_temp = 500.
+newphase2marker.f90:298:!! temperature (C) of serpentine phase transition
+newphase2marker.f90:300:!real*8, parameter :: serpentine_temp = 550.
+newphase2marker.f90:301:!!real*8, parameter :: serpentine_temp = 1550.
+newphase2marker.f90:302:!!temperature (C) and depth (m) of 10% partial melting of upper mantle.
+newphase2marker.f90:304:!real*8, parameter :: partial_melt_temp = 600.
+newphase2marker.f90:305:!!real*8, parameter :: partial_melt_temp = 1300.
+newphase2marker.f90:336:!tmpr = 0.25*(temp(j,i)+temp(j+1,i)+temp(j,i+1)+temp(j+1,i+1))
+newphase2marker.f90:337:!if (tmpr > partial_melt_temp) then
+newphase2marker.f90:366:!tmpr = temp(j,i)*mark(kk)%a1 + temp(j+1,i)*mark(kk)%a2 + temp(j,i+1)*(1-mark(kk)%a1-mark(kk)%a2)
+newphase2marker.f90:369:!tmpr = temp(j,i+1)*mark(kk)%a1 + temp(j+1,i)*mark(kk)%a2 + temp(j+1,i+1)*(1-mark(kk)%a1-mark(kk)%a2)
+newphase2marker.f90:453:!if (tmpr < min_eclogite_temp .or. press < trpres) cycle
+newphase2marker.f90:470:!if (tmpr < serpentine_temp .or. (press < trpres .and. press > trpres2)) cycle
+newphase2marker.f90:513:!! storing plastic strain in temporary array
+outflac.f90:60:if( io_temp.eq.1 ) then
+outflac.f90:62:    Dn2(1:nz,1:nx,1) = real(temp(1:nz,1:nx))
+outflac.f90:63:    open (1,file='temperature.0',access='direct',recl=nwords*kindr)
+outflac.f90:234:if( io_temp.eq.1 ) then
+outflac.f90:237:            De(j,i) = real(0.25*( temp(j,i)+temp(j+1,i)+temp(j,i+1)+temp(j+1,i+1) ))
+outflac.f90:240:    open (1,file='temp.0',access='direct',recl=nwords*kindr)
+outflac.f90:302:        dtmpr = temp(2,i) - temp(1,i)
+outtracer.f90:9:real xik(nmtracers),timtrk(nmtracers),xtrak(nmtracers),ytrak(nmtracers),temptrak(nmtracers),phtrak(nmtracers)
+outtracer.f90:48:        temptrak(kk) = 0.
+outtracer.f90:61:        tmpr = real(0.25*(temp(j,i)+temp(j+1,i)+temp(j,i+1)+temp(j+1,i+1)))
+outtracer.f90:62:        temptrak(kk) = real(tmpr)
+outtracer.f90:95:D1d(i) = temptrak(i)
+outtracer.f90:97:open (1,file='outtracktemp.0',access='direct',recl=nwords*kindr)
+par.f90:120:      if(iynts.eq.1) call init_temp
+par.f90:125:      ! If there are markers recalculate their x,y global coordinate and assign them aps, eII, press, temp
+read_params.f90:127:read (4,*) itemp_bc, bot_bc
+read_params.f90:128:if( itemp_bc.eq.2 ) bot_bc = bot_bc/1000  ! convert in W/m3
+read_params.f90:129:! temperature pertrubation (rectangular)
+read_params.f90:131:read (4,*) temp_per, ix1t, ix2t, iy1t, iy2t
+read_params.f90:134:read(4,*) irtemp
+read_params.f90:135:if ( irtemp .gt. 0 ) then
+read_params.f90:137:    read(4,*) tempfile
+read_params.f90:145:! temp structure
+read_params.f90:316:    io_temp,io_melt,io_visc,io_phas,io_mark,io_src,io_diss,io_forc,io_hfl,io_topo
+remesh.f90:221:temp0(1:nz,1:nx) = temp(1:nz,1:nx)
+remesh.f90:241:dummy(1:nzt,1:nxt) = temp(1:nzt,1:nxt)
+remesh.f90:243:temp(1:nzt,1:nxt) = dummy(1:nzt,1:nxt)
+remesh.f90:246:! Changing the temperature of left-/right- most elements
+remesh.f90:247:! in accordance to initial temperature
+remesh.f90:248:if(incoming_left==1) call sidewalltemp(1,1+idist)
+remesh.f90:249:if(incoming_right==1) call sidewalltemp(nx-idist,nx)
+remesh.f90:257:!if (iac_rem.eq.1) call init_temp
+remesh.f90:265:        tmpr = 0.25*(temp(j,i)+temp(j+1,i)+temp(j,i+1)+temp(j+1,i+1))
+rh_maxwell.f90:13:real*8 rmu, temp, vic1, vic2, dev, de11d, de22d, de33d, s0, s11d, s22d, s33d
+rh_maxwell.f90:23:temp = rmu/(2.*viscosity) * dt 
+rh_maxwell.f90:25:if ( temp .gt. 0.5 ) then
+rh_maxwell.f90:31:vic1 = 1.0 - temp 
+rh_maxwell.f90:32:vic2 = 1.0/(1.0 + temp)
+rh_visc.f90:13:tmpr = 0.25*(temp(j,i)+temp(j+1,i)+temp(j,i+1)+temp(j+1,i+1))
+rsflac.f90:79:open (1,file='temp.rs',access='direct',recl=nwords*kindr) 
+rsflac.f90:80:read (1,rec=nrec) temp
+saveflac.f90:72:open (1,file='temp.rs',access='direct',recl=nwords*kindr) 
+saveflac.f90:73:write (1,rec=nrec) temp
+setflac.f90:38:! Initiate temperature field
+setflac.f90:39:call init_temp
+user_ab.f90:115:            temp(j  ,i  ) = intr%T
+user_ab.f90:116:            temp(j+1,i  ) = intr%T
+user_ab.f90:117:            temp(j  ,i+1) = intr%T
+user_ab.f90:118:            temp(j+1,i+1) = intr%T
+user_luc.f90:33:    tmpr = 0.25*(temp(j,k)+temp(j+1,k)+temp(j,k+1)+temp(j+1,k+1))
+user_luc.f90:48:    tmpr = 0.25*(temp(j,k)+temp(j+1,k)+temp(j,k+1)+temp(j+1,k+1))
