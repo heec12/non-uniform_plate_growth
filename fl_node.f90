@@ -1,7 +1,7 @@
-
 !  Calculations of forces from stresses
 subroutine fl_node
 use arrays
+
 include 'precision.inc'
 include 'params.inc'
 include 'arrays.inc'
@@ -400,77 +400,141 @@ if(nyhydro.gt.0) then
     enddo
     !$OMP end do
 endif
-
-do j=1,nz
-    if ((time.gt.3.85*1e3*3.1536e7)) then !121869852110.0. and. time.le.121869852111.0)) then
-        print *, '1) left j=', j, force(j,1,1), 'time =', time
-        print *, '2) left j=', j, force(j,1,2), 'time =', time
-        print *, '1) right j=', j, force(j,nx,1), 'time =', time
-        print *, '2) right j=', j, force(j,nx,2), 'time =', time
-    end if
-enddo
+!$OMP end parallel
 
 ! Traction bc for side walls
 !! LEFT WALL
-!$OMP do
-do j=1,nz
 
-! pressure from water sea on top
+! Fbdy calculation
+do j=1,nz
+    if ((time.lt.3.85*1.e3*3.1536e7)) then
+        SumNodeLeft(:) = 0
+        FbdyLeft(:) = 0
+    elseif ((time.gt.3.85*1.e3*3.1536e7 .and. time.lt.5*1.e3*3.1536e7)) then
+        SumNodeLeft(j) = SumNodeLeft(j) + force(j,1,1)
+    end if
+    FbdyLeft(j) = SumNodeLeft(j)/228.0
+end do
+!print *, 'cumulative force', SumNodeLeft
+!print *, 'averaged force', Fbdy
+
+do j=1,nz
 !    rho_mantle_g = 1.e6 !3e8 !3300. * g
+
     if ((time .lt. 3.85*1e3*3.1536e7)) then
         rho_mantle_g = time*1.e8 / (1*1e6*3.1536e7)
-    else
+
+        !if () then ! For every elements in model
+        if(j.eq.1) then
+            press_norm_u = 0
+            dlx_u = 0
+            dly_u = 0
+            press_norm_d = rho_mantle_g !*((cord(j+1,1,2)+cord(j,1,2))/2.)
+            dlx_d = cord(j+1,1,1)-cord(j,1  ,1)
+            dly_d = cord(j+1,1,2)-cord(j,1  ,2)
+        elseif(j.eq.nz) then
+            press_norm_u = rho_mantle_g !*((cord(j-1,1,2)+cord(j,1,2))/2.)
+            dlx_u = cord(j,1  ,1)-cord(j-1,1,1)
+            dly_u = cord(j,1  ,2)-cord(j-1,1,2)
+            press_norm_d = 0
+            dlx_d = 0
+            dly_d = 0
+        else
+            press_norm_u = rho_mantle_g !*((cord(j-1,1,2)+cord(j,1,2))/2.)
+            dlx_u = cord(j,1  ,1)-cord(j-1,1,1)
+            dly_u = cord(j,1  ,2)-cord(j-1,1,2)
+            press_norm_d = rho_mantle_g !*((cord(j+1,1,2)+cord(j,1,2))/2.)
+            dlx_d = cord(j+1,1,1)-cord(j,1  ,1)
+            dly_d = cord(j+1,1,2)-cord(j,1  ,2)
+        endif
+        force(j,1,1) = 0.5*press_norm_u*dly_u + 0.5*press_norm_d*dly_d
+        force(j,1,2) = - 0.5*press_norm_u*dlx_u - 0.5*press_norm_d*dlx_d
+        balance(j,1,1) = 1.0d+17
+!        endif
+
+    elseif ((time.gt.3.85*1.e3*3.1536e7 .and. time.lt.5*1.e3*3.1536e7)) then
         rho_mantle_g = 0
-    end if    
-    
-!if () then ! For every elements in model
-    if(j.eq.1) then
-        press_norm_u = 0
-        dlx_u = 0
-        dly_u = 0
-        press_norm_d = rho_mantle_g !*((cord(j+1,1,2)+cord(j,1,2))/2.)
-        dlx_d = cord(j+1,1,1)-cord(j,1  ,1)
-        dly_d = cord(j+1,1,2)-cord(j,1  ,2)
-    elseif(j.eq.nz) then
-        press_norm_u = rho_mantle_g !*((cord(j-1,1,2)+cord(j,1,2))/2.)
-        dlx_u = cord(j,1  ,1)-cord(j-1,1,1)
-        dly_u = cord(j,1  ,2)-cord(j-1,1,2)
-        press_norm_d = 0
-        dlx_d = 0
-        dly_d = 0
+
+        if(j.eq.1) then
+            press_norm_u = 0
+            dlx_u = 0
+            dly_u = 0
+            press_norm_d = rho_mantle_g !*((cord(j+1,1,2)+cord(j,1,2))/2.)
+            dlx_d = cord(j+1,1,1)-cord(j,1  ,1)
+            dly_d = cord(j+1,1,2)-cord(j,1  ,2)
+        elseif(j.eq.nz) then
+            press_norm_u = rho_mantle_g !*((cord(j-1,1,2)+cord(j,1,2))/2.)
+            dlx_u = cord(j,1  ,1)-cord(j-1,1,1)
+            dly_u = cord(j,1  ,2)-cord(j-1,1,2)
+            press_norm_d = 0
+            dlx_d = 0
+            dly_d = 0
+        else
+            press_norm_u = rho_mantle_g !*((cord(j-1,1,2)+cord(j,1,2))/2.)
+            dlx_u = cord(j,1  ,1)-cord(j-1,1,1)
+            dly_u = cord(j,1  ,2)-cord(j-1,1,2)
+            press_norm_d = rho_mantle_g !*((cord(j+1,1,2)+cord(j,1,2))/2.)
+            dlx_d = cord(j+1,1,1)-cord(j,1  ,1)
+            dly_d = cord(j+1,1,2)-cord(j,1  ,2)
+        endif
+        force(j,1,1) = 0.5*press_norm_u*dly_u + 0.5*press_norm_d*dly_d
+        force(j,1,2) = - 0.5*press_norm_u*dlx_u - 0.5*press_norm_d*dlx_d
+        balance(j,1,1) = 1.0d+17
+
+    elseif ((time.gt.3.85*1.e3*3.1536e7 .and. temp(j,1).gt.1000.0)) then
+        rho_mantle_g = 0
+
+        if(j.eq.1) then
+            press_norm_u = 0
+            dlx_u = 0
+            dly_u = 0
+            press_norm_d = rho_mantle_g !*((cord(j+1,1,2)+cord(j,1,2))/2.)
+            dlx_d = cord(j+1,1,1)-cord(j,1  ,1)
+            dly_d = cord(j+1,1,2)-cord(j,1  ,2)
+        elseif(j.eq.nz) then
+            press_norm_u = rho_mantle_g !*((cord(j-1,1,2)+cord(j,1,2))/2.)
+            dlx_u = cord(j,1  ,1)-cord(j-1,1,1)
+            dly_u = cord(j,1  ,2)-cord(j-1,1,2)
+            press_norm_d = 0
+            dlx_d = 0
+            dly_d = 0
+        else
+            press_norm_u = rho_mantle_g !*((cord(j-1,1,2)+cord(j,1,2))/2.)
+            dlx_u = cord(j,1  ,1)-cord(j-1,1,1)
+            dly_u = cord(j,1  ,2)-cord(j-1,1,2)
+            press_norm_d = rho_mantle_g !*((cord(j+1,1,2)+cord(j,1,2))/2.)
+            dlx_d = cord(j+1,1,1)-cord(j,1  ,1)
+            dly_d = cord(j+1,1,2)-cord(j,1  ,2)
+        endif
+        force(j,1,1) = 0.5*press_norm_u*dly_u + 0.5*press_norm_d*dly_d
+        force(j,1,2) = - 0.5*press_norm_u*dlx_u - 0.5*press_norm_d*dlx_d
+
     else
-        press_norm_u = rho_mantle_g !*((cord(j-1,1,2)+cord(j,1,2))/2.)
-        dlx_u = cord(j,1  ,1)-cord(j-1,1,1)
-        dly_u = cord(j,1  ,2)-cord(j-1,1,2)
-        press_norm_d = rho_mantle_g !*((cord(j+1,1,2)+cord(j,1,2))/2.)
-        dlx_d = cord(j+1,1,1)-cord(j,1  ,1)
-        dly_d = cord(j+1,1,2)-cord(j,1  ,2)
-    endif
-    !print *, 'left j=', j, force(j,1,1), 0.5*press_norm_u*dly_u, 0.5*press_norm_d*dly_d
-    !force(j,1,1) = force(j,1,1) + 0.5*press_norm_u*dly_u + 0.5*press_norm_d*dly_d
-    !force(j,1,2) = force(j,1,2) - 0.5*press_norm_u*dlx_u - 0.5*press_norm_d*dlx_d
-    force(j,1,1) = 0.5*press_norm_u*dly_u + 0.5*press_norm_d*dly_d
-    force(j,1,2) = - 0.5*press_norm_u*dlx_u - 0.5*press_norm_d*dlx_d
-    balance(j,1,1) = 1.0d+17
-    !print *, force(j,1,1)
-!endif
-enddo
-!$OMP end do
+        force(j,1,1) = force(j,1,1) - FbdyLeft(j)
+        force(j,1,2) = 0.0
+        balance(j,1,1) = 1.0d+17
+
+    end if
+end do
 
 !! RIGHT WALL
+
+! Fbdy calculation
+do j=1,nz
+    if ((time.lt.3.85*1.e3*3.1536e7)) then
+        SumNodeRight(:) = 0
+        FbdyRight(:) = 0
+    elseif ((time.gt.3.85*1.e3*3.1536e7 .and. time.lt.5*1.e3*3.1536e7)) then
+        SumNodeRight(j) = SumNodeRight(j) + force(j,nx,1)
+    end if
+    FbdyRight(j) = SumNodeRight(j)/228.0
+end do
+
 !$OMP do
 do j=1,nz
 
-! bottom support - Archimed force (normal to the surface, shear component = 0)
-!p_est = pisos + 0.5*(den(iphsub)+drosub)*g*(cord(nz,i,2)-rzbo)
-!rosubg = g * (den(iphsub)+drosub) * (1-alfa(iphsub)*temp(nz,i)+beta(iphsub)*p_est)
-!        rho_mantle_g = 1.0e6 !3e8 !3300. * g
-        if ((time .lt. 3.85*1.e3*3.1536e7)) then
-            rho_mantle_g = time*1.e8 / (1*1e6*3.1536e7)
-        else
-            rho_mantle_g = 0
-        end if
-
+    if ((time .lt. 3.85*1e3*3.1536e7)) then
+        rho_mantle_g = time*1.e8 / (1*1e6*3.1536e7)
         if(j.eq.1) then
             press_norm_u = 0
             dlx_u = 0
@@ -493,20 +557,71 @@ do j=1,nz
             dlx_d = cord(j+1,nx,1)-cord(j,nx  ,1)
             dly_d = cord(j+1,nx,2)-cord(j,nx  ,2)
         endif
-        !print *, 'right j=', j, force(j,nx,1), 0.5*press_norm_u*dly_u, 0.5*press_norm_d*dly_d
-        !force(j,nx,1) = force(j,nx,1)-0.5*press_norm_u*dly_u-0.5*press_norm_d*dly_d
-        !force(j,nx,2) = force(j,nx,2)+0.5*press_norm_u*dlx_u+0.5*press_norm_d*dlx_d
         force(j,nx,1) = -0.5*press_norm_u*dly_u-0.5*press_norm_d*dly_d
         force(j,nx,2) = 0.5*press_norm_u*dlx_u+0.5*press_norm_d*dlx_d
         balance(j,nx,1) = 1.0d+17
-        !print *, force(j,nx,1)
-    !write(*,*) i,pisos,force(nz,i,1),force(nz,i,2),press_norm_l,press_norm_r,dlx_l,dlx_r,dly_l,dly_r
 
-enddo
+    elseif ((time.gt.3.85*1.e3*3.1536e7 .and. time.lt.5*1.e3*3.1536e7)) then
+        rho_mantle_g = 0
+        if(j.eq.1) then
+            press_norm_u = 0
+            dlx_u = 0
+            dly_u = 0
+            press_norm_d = rho_mantle_g !*((cord(j+1,nx,2)+cord(j,nx,2))/2.)
+            dlx_d = cord(j+1,nx,1)-cord(j,nx  ,1)
+            dly_d = cord(j+1,nx,2)-cord(j,nx  ,2)
+        elseif(j.eq.nz) then
+            press_norm_u = rho_mantle_g !*((cord(j-1,nx,2)+cord(j,nx,2))/2.)
+            dlx_u = cord(j,nx  ,1)-cord(j-1,nx,1)
+            dly_u = cord(j,nx  ,2)-cord(j-1,nx,2)
+            press_norm_d = 0
+            dlx_d = 0
+            dly_d = 0
+        else
+            press_norm_u = rho_mantle_g !*((cord(j-1,nx,2)+cord(j,nx,2))/2.)
+            dlx_u = cord(j,nx  ,1)-cord(j-1,nx,1)
+            dly_u = cord(j,nx  ,2)-cord(j-1,nx,2)
+            press_norm_d = rho_mantle_g !*((cord(j+1,nx,2)+cord(j,nx,2))/2.)
+            dlx_d = cord(j+1,nx,1)-cord(j,nx  ,1)
+            dly_d = cord(j+1,nx,2)-cord(j,nx  ,2)
+        endif
+        force(j,nx,1) = -0.5*press_norm_u*dly_u-0.5*press_norm_d*dly_d
+        force(j,nx,2) = 0.5*press_norm_u*dlx_u+0.5*press_norm_d*dlx_d
+
+    elseif ((time.gt.3.85*1.e3*3.1536e7 .and. temp(nx,1).gt.1000.0)) then
+        rho_mantle_g = 0
+        if(j.eq.1) then
+            press_norm_u = 0
+            dlx_u = 0
+            dly_u = 0
+            press_norm_d = rho_mantle_g !*((cord(j+1,nx,2)+cord(j,nx,2))/2.)
+            dlx_d = cord(j+1,nx,1)-cord(j,nx  ,1)
+            dly_d = cord(j+1,nx,2)-cord(j,nx  ,2)
+        elseif(j.eq.nz) then
+            press_norm_u = rho_mantle_g !*((cord(j-1,nx,2)+cord(j,nx,2))/2.)
+            dlx_u = cord(j,nx  ,1)-cord(j-1,nx,1)
+            dly_u = cord(j,nx  ,2)-cord(j-1,nx,2)
+            press_norm_d = 0
+            dlx_d = 0
+            dly_d = 0
+        else
+            press_norm_u = rho_mantle_g !*((cord(j-1,nx,2)+cord(j,nx,2))/2.)
+            dlx_u = cord(j,nx  ,1)-cord(j-1,nx,1)
+            dly_u = cord(j,nx  ,2)-cord(j-1,nx,2)
+            press_norm_d = rho_mantle_g !*((cord(j+1,nx,2)+cord(j,nx,2))/2.)
+            dlx_d = cord(j+1,nx,1)-cord(j,nx  ,1)
+            dly_d = cord(j+1,nx,2)-cord(j,nx  ,2)
+        endif
+        force(j,nx,1) = -0.5*press_norm_u*dly_u-0.5*press_norm_d*dly_d
+        force(j,nx,2) = 0.5*press_norm_u*dlx_u+0.5*press_norm_d*dlx_d
+
+    else
+        force(j,nx,1) = force(j,nx,1) - FbdyRight(j)
+        force(j,nx,2) = 0.0
+        balance(j,nx,1) = 1.0d+17
+    end if
+end do            
 !$OMP end do
-!endif
-
-
 
 !$OMP do reduction(max:boff)
 do i=1,nx
@@ -552,7 +667,6 @@ do i=1,nx
     end do
 end do
 !$OMP end do
-!$OMP end parallel
 ! Prestress to form the topo when density differences are present WITHOUT PUSHING OR PULLING!
 if (i_prestress.eq.1.and.time.lt.600.e3*sec_year) then
     do k = 1,2
