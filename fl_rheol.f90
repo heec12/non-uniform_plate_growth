@@ -21,7 +21,7 @@ rh_sel = .true.
 
 !XXX: irh==11, or irh>=11?
 irh=irheol(mphase)
-if(irh.eq.11) call init_visc
+if(irh.ge.11) call init_visc
 
 !if(iynts.eq.1) call init_temp
 
@@ -93,30 +93,6 @@ do 3 i = 1,nx-1 !nx-1 = 120 element number on x direction
         !endif
 !print*, 'it =', it
     if(ny_inject.gt.0.and.j.le.nelem_inject) then
-!!!!!!!!!!!!!!!!!!!!!!!!!change in rigidity!!!!!!!!!!!!!!!!!!!!!!!!!!
-        !!!!!!!!!!!too high!!!!!!!!!!!!!!
-!        if (it.eq.1) then
-!        if (temp_ave.lt.600. .and. (zcord_top-zcord_ave) .le. 7e3 .and.(fa * SIN(2 * pi/fb * time) + fc).ge.0.6) then
-!
-!           poiss = 0.5*rl(iph)/(rl(iph)+rm(iph))
-!           young = rm(iph)*2.*(1.+poiss)
-!           sarc1 = -young/(1.-poiss*poiss)*rate_inject/dxinj*dt
-!           sarc2 = sarc1*poiss/(1.-poiss)
-!        !!!!!!!!!!!too low!!!!!!!!!!!!!!!
-!!        elseif (temp_ave.lt.600. .and. (zcord_top-zcord_ave) .le. 7e3 .and.(fa * SIN(2 * pi/fb * time) + fc).le.0.25) then
-!!           poiss = 0.5*rl(iph)/(rl(iph)+rm(iph))
-!!           young = 10. * rm(iph)*2.*(1.+poiss)
-!!           sarc1 = -young/(1.-poiss*poiss)*rate_inject/dxinj*dt
-!!           sarc2 = sarc1*poiss/(1.-poiss)
-!          else
-
-!           poiss = 0.5*rl(iph)/(rl(iph)+rm(iph))
-!           young = rm(iph)*2.*(1.+poiss)
-!           sarc1 = -young/(1.-poiss*poiss)*rate_inject/dxinj*dt
-!           sarc2 = sarc1*poiss/(1.-poiss)
-!          endif
-!        endif
-!!!!!!!!!!!!!!!!!!!!!!!!change in rigidity ends!!!!!!!!!!!!!!!!!!
         !if (it.eq.2) then
          poiss = 0.5*rl(iph)/(rl(iph)+rm(iph))
          young = rm(iph)*2.*(1.+poiss)
@@ -133,7 +109,7 @@ do 3 i = 1,nx-1 !nx-1 = 120 element number on x direction
 
         ! Preparation of plastic properties
         !if (irh.eq.6 .or. irh.ge.11) call pre_plast(i,j,coh,phi,psi,hardn)
-if (irh.eq.6 .or. irh.ge.11) call pre_plast(i,j,coh,phi,psi,hardn)
+        if (irh.eq.6 .or. irh.ge.11) call pre_plast(i,j,coh,phi,psi,hardn)
 
         ! Re-evaluate viscosity
         if (irh.eq.7 .or. irh.eq.12) then
@@ -204,6 +180,7 @@ if (irh.eq.6 .or. irh.ge.11) call pre_plast(i,j,coh,phi,psi,hardn)
             !elseif (irh.ge.11) then
                 ! Mixed rheology (Maxwell or plastic)
                 if( rh_sel ) then
+                depl(k) = 0.0
                     call plastic(bulkm,rmu,coh,phi,psi,depl(k),ipls,diss,hardn,&
                         s11p(k),s22p(k),s33p(k),s12p(k),de11,de22,de33,de12,&
                         ten_off,ndim,irh_mark)
@@ -309,11 +286,13 @@ if (irh.eq.6 .or. irh.ge.11) call pre_plast(i,j,coh,phi,psi,hardn)
             !  ACCUMULATED PLASTIC STRAIN
             ! Average the strain for pair of the triangles
             ! Note that area (n,it) is inverse of double area !!!!!
-            dps = 0.5*( depl(1)*area(j,i,2)+depl(2)*area(j,i,1) ) / (area(j,i,1)+area(j,i,2)) &
-                + 0.5*( depl(3)*area(j,i,4)+depl(4)*area(j,i,3) ) / (area(j,i,3)+area(j,i,4))
-            aps(j,i) = aps(j,i) + dps 
+            if (sII_plas .lt. sII_visc) then
+                dps = 0.5*( depl(1)*area(j,i,2)+depl(2)*area(j,i,1) ) / (area(j,i,1)+area(j,i,2)) &
+                    + 0.5*( depl(3)*area(j,i,4)+depl(4)*area(j,i,3) ) / (area(j,i,3)+area(j,i,4))
+                aps(j,i) = aps(j,i) + dps 
+  
             if( aps(j,i) .lt. 0. ) aps(j,i) = 0.
-
+            endif
             !	write(*,*) depl(1),depl(2),depl(3),depl(4),area(j,i,1),area(j,i,2),area(j,i,3),area(j,i,4)
             !print *,'13'
             ! LINEAR HEALING OF THE PLASTIC STRAIN
@@ -335,130 +314,11 @@ if (irh.eq.6 .or. irh.ge.11) call pre_plast(i,j,coh,phi,psi,hardn)
             !if (ny_inject.gt.0.and. (i.le.(iinj+1))) aps (j,i) = 0.
         end if
 
-
-!!!!!!!!!!!!debug!!!!!!!!!!!!!
-!sxx5 = 0.25 * (stress0(5,26,1,1)+stress0(5,26,1,2)+stress0(5,26,1,3)+stress0(5,26,1,4))
-!syy5 = 0.25 * (stress0(5,26,2,1)+stress0(5,26,2,2)+stress0(5,26,2,3)+stress0(5,26,2,4))
-!szz5 = 0.25 * (stress0(5,26,4,1)+stress0(5,26,4,2)+stress0(5,26,4,3)+stress0(5,26,4,4))
-!sxx4 = 0.25 * (stress0(4,26,1,1)+stress0(4,26,1,2)+stress0(4,26,1,3)+stress0(4,26,1,4))
-!syy4 = 0.25 * (stress0(4,26,2,1)+stress0(4,26,2,2)+stress0(4,26,2,3)+stress0(4,26,2,4))
-!szz4 = 0.25 * (stress0(4,26,4,1)+stress0(4,26,4,2)+stress0(4,26,4,3)+stress0(4,26,4,4))
-!sxx6 = 0.25 * (stress0(6,26,1,1)+stress0(6,26,1,2)+stress0(6,26,1,3)+stress0(6,26,1,4))
-!syy6 = 0.25 * (stress0(6,26,2,1)+stress0(6,26,2,2)+stress0(6,26,2,3)+stress0(6,26,2,4))
-!szz6 = 0.25 * (stress0(6,26,4,1)+stress0(6,26,4,2)+stress0(6,26,4,3)+stress0(6,26,4,4))
-
-!sxx9 = 0.25 * (stress0(9,62,1,1)+stress0(9,62,1,2)+stress0(9,62,1,3)+stress0(9,62,1,4))
-!syy9 = 0.25 * (stress0(9,62,2,1)+stress0(9,62,2,2)+stress0(9,62,2,3)+stress0(9,62,2,4))
-!szz9 = 0.25 * (stress0(9,62,4,1)+stress0(9,62,4,2)+stress0(9,62,4,3)+stress0(9,62,4,4))
-!sxx8 = 0.25 * (stress0(8,62,1,1)+stress0(8,62,1,2)+stress0(8,62,1,3)+stress0(8,62,1,4))
-!syy8 = 0.25 * (stress0(8,62,2,1)+stress0(8,62,2,2)+stress0(8,62,2,3)+stress0(8,62,2,4))
-!szz8 = 0.25 * (stress0(8,62,4,1)+stress0(8,62,4,2)+stress0(8,62,4,3)+stress0(8,62,4,4))
-!sxx10 = 0.25 * (stress0(10,62,1,1)+stress0(10,62,1,2)+stress0(10,62,1,3)+stress0(10,62,1,4))
-!syy10 = 0.25 * (stress0(10,62,2,1)+stress0(10,62,2,2)+stress0(10,62,2,3)+stress0(10,62,2,4))
-!szz10 = 0.25 * (stress0(10,62,4,1)+stress0(10,62,4,2)+stress0(10,62,4,3)+stress0(10,62,4,4))
-!sec_year = 3.1558e+7
-
-!if( mod(nloop, 50000).eq.0 ) then
-!open (unit = 1, file = "sxx5.txt",position='append')
-!open (unit = 2, file = "syy5.txt",position='append')
-!open (unit = 3, file = "szz5.txt",position='append')
-!write (1,*) sxx5
-!write (2,*) syy5
-!write (3,*) szz5
-!
-!open (unit = 4, file = "sxx4.txt",position='append')
-!open (unit = 5, file = "syy4.txt",position='append')
-!open (unit = 6, file = "szz4.txt",position='append')
-!write (4,*) sxx4
-!write (5,*) syy4
-!write (6,*) szz4
-
-!open (unit = 7, file = "sxx6.txt",position='append')
-!open (unit = 8, file = "syy6.txt",position='append')
-!open (unit = 9, file = "szz6.txt",position='append')
-!write (7,*) sxx6
-!write (8,*) syy6
-!write (9,*) szz6
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-!open (unit = 10, file = "sxx9.txt",position='append')
-!open (unit = 11, file = "syy9.txt",position='append')
-!open (unit = 12, file = "szz9.txt",position='append')
-!write (10,*) sxx9
-!write (11,*) syy9
-!write (12,*) szz9
-
-!open (unit = 13, file = "sxx8.txt",position='append')
-!open (unit = 14, file = "syy8.txt",position='append')
-!open (unit = 15, file = "szz8.txt",position='append')
-!write (13,*) sxx8
-!write (14,*) syy8
-!write (15,*) szz8
-
-!open (unit = 16, file = "sxx10.txt",position='append')
-!open (unit = 17, file = "syy10.txt",position='append')
-!open (unit = 18, file = "szz10.txt",position='append')
-!write (16,*) sxx10
-!write (17,*) syy10
-!write (18,*) szz10
-
-!open (unit = 19, file = "timeinyr.txt",position='append')
-!write (19,*) (time/sec_year/1.e6)
-
-!end if
-!!!!!!!!!!!debug ends!!!!!!!!!!!!!!
-
-
         ! TOTAL FINITE STRAIN
         strain(j,i,1) = strain(j,i,1) + 0.25*dt*(strainr(1,1,j,i)+strainr(1,2,j,i)+strainr(1,3,j,i)+strainr(1,4,j,i))
         strain(j,i,2) = strain(j,i,2) + 0.25*dt*(strainr(2,1,j,i)+strainr(2,2,j,i)+strainr(2,3,j,i)+strainr(2,4,j,i))
         strain(j,i,3) = strain(j,i,3) + 0.25*dt*(strainr(3,1,j,i)+strainr(3,2,j,i)+strainr(3,3,j,i)+strainr(3,4,j,i))
-!!!!!!!!!!!!!!!!!!!!!!!debug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!        strain_1st = 0.5 * ( strain(5,26,1) + strain(5,26,2) )
-!        strain_2nd = 0.5 * sqrt((strain(5,26,1)-strain(5,26,2))**2 + 4*strain(5,26,3)**2)
-!        if( mod(nloop, 50000).eq.0 ) then
-!        open (unit = 7, file = "strain_1st.txt")
-!        open (unit = 8, file = "strain_2nd.txt")
-!        write(7,*) strain_1st
-!        write (8,*) strain_2nd
-!        end if
-!!!!!!!!!!!!!!!!!!!!!!debug ends!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        !print *,'strain1 =', strain(2,44,1)
-        !print *,'strain2 =', strain(2,44,2)
-        !print *,'strain3 =', strain(2,44,3)
-!do  i = 1,nx-1 !nx-1 = 120 element number on x direction
-!do  j = 1,nz-1
 
-!end do
-!end do
-
-!!!!!!!!!!!!!!!!!!!!debug starts!!!!!!!!!!!!!!!!!!!
-!do  ii = 1,nx-1 !nx-1 = 120 element number on x direction
-!do  jj = 1,nz-1
-!iph = iphase(jj,ii)
-!irh = irheol(iph)
-!do k = 1,4
-!if((jj==5).and.(ii==26)) then
-!call plastic(bulkm,rmu,coh,phi,psi,depl(k),ipls,diss,hardn,s11p(k),s22p(k),s33p(k),s12p(k),de11,de22,de33,de12,&
-!ten_off,ndim,irh_mark)
-!open (unit = 1, file = "s11.txt")
-!write (1,*) s11
-!
-!open (unit = 2, file = "s22.txt")
-!write (2,*) s22
-!
-!open (unit = 3, file = "anphi.txt")
-!write (3,*) anphi
-!
-!open (unit = 4, file = "amc.txt")
-!write (4,*) amc
-!
-!end if
-!enddo
-!enddo
-!enddo
-!!!!!!!!!!!!!!!!!!!!debug ends!!!!!!!!!!!!!!!!!!!!
 3 continue
 !$OMP end do
 !$OMP end parallel
