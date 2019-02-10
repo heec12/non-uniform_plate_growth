@@ -13,7 +13,7 @@ common /topo_arrays/ dtopo(mnx+1), dhacc(mnx+1), extrusion(mnx), &
 common /all_arrays/ strainr(3,4,mnz,mnx)
 
 common /rheol_arrays/ aps(mnz,mnx),visn(mnz,mnx),e2sr(mnz,mnx),irheol_fl(mnz,mnx), &
-     SumNodeLeft(41),SumNodeRight(41),FbdyLeft(41),FbdyRight(41)
+     SumNodeLeft(41),SumNodeRight(41),FbdyLeft(41),FbdyRight(41),printforce(41)
 
 common /temp_arrays/ temp0(mnz+1,mnx+1),source(mnz,mnx),shrheat(mnz,mnx),temp00(mnz+1,mnx+1)
     

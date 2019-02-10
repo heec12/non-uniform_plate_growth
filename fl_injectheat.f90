@@ -89,7 +89,8 @@ goto 222 !Tian Comment this block, it make ninjbot become weird (always equals t
          if (time.le.0.4*1e6*3.1536e7) then
           rate_inject=rate_inject_brittle
          else
-          rate_inject=rate_inject_ductile
+          rate_inject=rate_inject_brittle !rate_inject_ductile
+!          ratfac = 2.
          endif
 
    rfac=ratfac*rate_inject*dt/(dx11*dble(ninj))   ! no need to have ratfac

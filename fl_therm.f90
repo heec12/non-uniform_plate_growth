@@ -241,7 +241,7 @@ do i = 1,nx
         endif
 
         ! Update Temperature by Eulerian method
-        temp(j,i) = temp(j,i)+rhs*dt_therm/area_n
+        temp(j,i) = temp(j,i) +rhs*dt_therm/area_n
     end do
 
 end do

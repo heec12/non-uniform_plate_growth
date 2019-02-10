@@ -76,8 +76,8 @@ do 3 i = 1,nx-1 !nx-1 = 120 element number on x direction
         !if (it.eq.2) then
          if (time.le.0.4*1e6*3.1536e7) then
              rate_inject = rate_inject_brittle
-         elseif (time.gt.0.4*1e6*3.1536e7) then
-             rate_inject = rate_inject_ductile
+         else !if (time.gt.0.4*1e6*3.1536e7) then
+             rate_inject = rate_inject_brittle !rate_inject_ductile
 !         elseif ((temp_ave.gt.600).and.(time .lt. time_max*0.3)) then
 !             rate_inject = rate_inject_ductile
 !         elseif ((temp_ave.gt.600).and.(time .ge. time_max*0.3).and.(time .lt. time_max*0.6)) then

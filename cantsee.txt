@@ -1,0 +1,96 @@
+flac.f90:14:call fl_injectheat
+fl_injectheat.f90:2:!  Adding magma and latent heat in injection zone
+fl_injectheat.f90:5:subroutine fl_injectheat    
+fl_injectheat.f90:22:dimension njTinj(nz) 
+fl_injectheat.f90:26:ninj=iinj2-iinj1+1   !new ninj(horizontal #nodes), iinj1(left bound of dike), iinj2(right bound)
+fl_injectheat.f90:27:!ninj = 2, number of nodes that covers the width of dike, Hao
+fl_injectheat.f90:32:ninjbot=jinj2     !new ninjbot, jinj2(bottom # of dike)
+fl_injectheat.f90:33:!print *,'iinj1 =', iinj1, 'iinj2=', iinj2, 'ninj=',ninj,'xlatheat=',xlatheat,'fdum=',fdum,'ninjbot=',ninjbot !Hao debug
+fl_injectheat.f90:37:do 110 i=iinj1,iinj2+1
+fl_injectheat.f90:38:!i=iinj1,iinj2+1 
+fl_injectheat.f90:39:goto 222 !Tian Comment this block, it make ninjbot become weird (always equals to 1)
+fl_injectheat.f90:41:   njTinj(1) = ninjbot   !Start: same code as in fl_rheol
+fl_injectheat.f90:44:     if(dcord.gt.Tcinj) then
+fl_injectheat.f90:45:       njTinj(jcnt) = j
+fl_injectheat.f90:49:   ninjbot = min(ninjbot,njTinj(1))  !End: same code as in fl_rheol
+fl_injectheat.f90:50:   !print *,'ninjbot =',ninjbot !debug
+fl_injectheat.f90:56:   do 100 j=jinj1,ninjbot+1
+fl_injectheat.f90:90:          rate_inject=rate_inject_brittle
+fl_injectheat.f90:92:          rate_inject=rate_inject_ductile
+fl_injectheat.f90:96:   rfac=ratfac*rate_inject*dt/(dx11*dble(ninj))   ! no need to have ratfac
+fl_injectheat.f90:97:   !print *,'rfac =',rfac,'ratfac =',ratfac,'rate_inject_2nd =',rate_inject,'ninj =',ninj !Hao debug
+fl_injectheat.f90:99:   dtemp=dtemp_inj(T0,tl(iph),ts(iph),rfac,fdum)
+fl_injectheat.f90:103:   rfac=ratfac*rate_inject*dt/(dx12*dble(ninj))
+fl_injectheat.f90:105:   dtemp=dtemp_inj(T0,tl(iph),ts(iph),rfac,fdum)
+fl_injectheat.f90:109:   rfac=ratfac*rate_inject*dt/(dx21*dble(ninj))
+fl_injectheat.f90:111:   dtemp=dtemp_inj(T0,tl(iph),ts(iph),rfac,fdum)
+fl_injectheat.f90:115:   rfac=ratfac*rate_inject*dt/(dx22*dble(ninj))
+fl_injectheat.f90:117:   dtemp=dtemp_inj(T0,tl(iph),ts(iph),rfac,fdum)
+fl_injectheat.f90:127:   if     (i.eq.iinj1) then
+fl_injectheat.f90:130:   elseif (i.eq.iinj2+1) then
+fl_injectheat.f90:135:   if (j.eq.jinj1) then  
+fl_injectheat.f90:138:   elseif (j.eq.ninjbot+1) then
+fl_injectheat.f90:153:! There is/was a bug that make dtemp_ave=NAN, with iinj1=1,
+fl_injectheat.f90:157:    write(*,'(8ES11.3,3i4)') dtemp11, dtemp12, dtemp21, dtemp22, dtemp_ave, dble(ninj), &
+fl_injectheat.f90:167:if (jinj1.eq.1) then
+fl_injectheat.f90:168:  do i = iinj1,iinj2+1
+fl_injectheat.f90:176:if (iinj1.eq.1) then
+fl_injectheat.f90:177:  do j = jinj1,jinj2
+fl_injectheat.f90:189:function dtemp_inj(T0,Tliq,Tsol,rfac,fdum)
+fl_injectheat.f90:197:!  dtemp_inj=( (Tliq-T0) + fdum*(Tliq-Tsol) )*rfac   
+fl_injectheat.f90:199:!  dtemp_inj=(Tliq-T0)*(1+fdum)*rfac/(1.0+fdum*rfac)
+fl_injectheat.f90:207:   dtemp_inj=( (Tliq-T0) + fdum*(Tliq-Tsol) ) * (rfac/(1+rfac))
+fl_injectheat.f90:210:!  dtemp_inj=(Tliq-T0) * (rfac/(1+rfac))
+fl_injectheat.f90:212:   dtemp_inj=(Tliq-T0) * (rfac/(1+rfac))
+fl_injectheat.f90:214:   dtemp_inj = 0.
+fl_rheol.f90:30:if (ny_inject.gt.0) then
+fl_rheol.f90:33:  if (ny_inject.eq.1) iinj = 1
+fl_rheol.f90:34:  if (ny_inject.eq.2) iinj = (nx-1)/2
+fl_rheol.f90:36:  dxinj = 0.
+fl_rheol.f90:37:  do jinj = 1,nelem_inject
+fl_rheol.f90:38:    dxinj=dxinj+cord(jinj,iinj+1,1)-cord(jinj,iinj,1)
+fl_rheol.f90:40:  dxinj = dxinj/nelem_inject
+fl_rheol.f90:70:!             rate_inject = rate_inject_brittle
+fl_rheol.f90:72:!             rate_inject = rate_inject_ductile
+fl_rheol.f90:78:             rate_inject = rate_inject_brittle
+fl_rheol.f90:80:             rate_inject = rate_inject_ductile
+fl_rheol.f90:82:!             rate_inject = rate_inject_ductile
+fl_rheol.f90:84:!             rate_inject = rate_inject_ductile_e
+fl_rheol.f90:86:!             rate_inject = rate_inject_ductile_s
+fl_rheol.f90:88:             !rate_inject = (fa * SIN(2 * pi/fb * time) + fc) * (fsr)  !sine function
+fl_rheol.f90:90:             !print*, 'rate =', rate_inject
+fl_rheol.f90:95:    if(ny_inject.gt.0.and.j.le.nelem_inject) then
+fl_rheol.f90:99:         sarc1 = -young/(1.-poiss*poiss)*rate_inject/dxinj*dt
+fl_rheol.f90:118:        !            if (ny_inject.gt.0.and.i.eq.iinj) visn(j,i) = v_min
+fl_rheol.f90:132:            if(ny_inject.gt.0.and.j.le.nelem_inject) then
+fl_rheol.f90:133:                !XXX: iinj is un-init'd if ny_inject is not 1 or 2.
+fl_rheol.f90:134:                if(i.eq.iinj) then
+fl_rheol.f90:313:            if (ny_inject.gt.0 .and. i.eq.iinj) aps (j,i) = 0.
+fl_rheol.f90:314:            !if (ny_inject.gt.0.and. (i.le.(iinj+1))) aps (j,i) = 0.
+fl_try.f90:7:ninj=iinj2-iinj1+1
+fl_try.f90:8:print *, 'iinj1=', iinj1, 'iinj2 =',iinj2, 'ninj=',ninj
+init_bc.f90:382:  if (ny_inject.gt.0) then
+init_bc.f90:383:      vbc = vbc -0.5*rate_inject
+newphase2marker.f90:129:  !iinj = nx/2
+newphase2marker.f90:130:  !jinj = 1,nelem_inject+1 !node in z
+newphase2marker.f90:137:     if( (i .eq. iinj) .and. (j .le. nelem_inject+1) ) then 
+newphase2marker.f90:226:     !if( (i .eq. nx/2) .and. (j .le. nelem_inject+1) ) then
+newphase2marker.f90:246:  i = iinj1 !nx/2
+newphase2marker.f90:263:!!print *, "Basalt layer: jj=",jj," ii=", nelem_inject, " phase=", iphase(jj, nelem_inject)
+newphase2marker.f90:267:!!print *, "Gabbro layer: jj=",jj," ii=", nelem_inject, " phase=", iphase(jj, nelem_inject)
+newphase2marker.f90:271:!!print *, "Mantle layer: jj=",jj," ii=", nelem_inject, " phase=", iphase(jj, nelem_inject)
+read_params.f90:244:!read(4,*) ny_inject, nelem_inject, nelem_inject1, nelem_inject2, rate_inject1, rate_inject2
+read_params.f90:245:!read(4,*) ny_inject, nelem_inject, rate_inject_brittle, rate_inject_ductile
+read_params.f90:246:read(4,*) ny_inject, nelem_inject, rate_inject_brittle, rate_inject_ductile
+read_params.f90:248:read(4,*)rate_inject_ductile_e, rate_inject_ductile_s
+read_params.f90:250:read(4,*) iinj1, iinj2, jinj1, jinj2, xlatheat, ratfac, fnu
+read_params.f90:363:!call ReadHeatinject()    ! - see user_Lu.f90 (6/28/18)!
+rem_cord.f90:16:    do i= 1,iinj-1
+rem_cord.f90:22:    do i = nx, iinj+2, -1 
+rem_cord.f90:23:    !do i = nx,iinj+1,-1
+rem_cord.f90:30:       cord(j,iinj,1) = cord(j,iinj-1,1) + dx_init 
+rem_cord.f90:31:       cord(j,iinj+1,1) = cord(j,iinj+2,1) -  dx_init 
+remesh.f90:261:do 522 i = iinj-1,iinj+1
+rem_test.f90:39:  !if(ny_inject.eq.2) dxratmax = 10.
+rem_test.f90:58:  if (ny_inject.eq.2) then
+rem_test.f90:60:      dx_accr = abs(cord(1,iinj+1,1)-cord(1,iinj,1))

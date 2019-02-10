@@ -155,6 +155,7 @@ do i = 1, nzone_age
            iph_col3(i),iph_col4(i),iph_col5(i),ixtb1(i),ixtb2(i)
 enddo
 ! check smooth nzone_age
+print *, 'B ixtb1 = ', ixtb1, 'B ixtb2 = ', ixtb2
 do i = 1, nzone_age-1
     iph_col_trans(i) = 0
     if (ixtb2(i) == -1) then
@@ -183,6 +184,7 @@ do i = 1, nzone_age-1
         ixtb1(i+1) = ixtb1(i)
     endif
 enddo
+print *, 'A ixtb1 = ', ixtb1, 'A ixtb2 = ', ixtb2
 
 ! RHEOLOGY
 call AdvanceToNextInputLine( 4 )
